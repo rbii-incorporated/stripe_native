@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/stripe_native.iml" filepath="$PROJECT_DIR$/stripe_native.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/stripe_native_android.iml" filepath="$PROJECT_DIR$/android/stripe_native_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/android/stripe_native_example_android.iml" filepath="$PROJECT_DIR$/example/android/stripe_native_example_android.iml" />
+    </modules>
+  </component>
+</project>
