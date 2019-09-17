@@ -1,7 +1,7 @@
-# stripe_native
+# Stripe Native
 
 Create chargeable stripe tokens using Apple and Google Pay.
 
-## Set Merchant Identifier
+### Set Merchant Identifier
 
-## Open Native-Pay
+### Open Native-Pay
