@@ -15,6 +15,16 @@ class Order {
   }
 }
 
+class Receipt {
+  Map<String, double> items;
+  String merchantName;
+
+  Receipt(Map<String, double> items, String merchantName) {
+    this.items = items;
+    this.merchantName = merchantName;
+  }
+}
+
 class StripeNative {
   static const MethodChannel _channel = const MethodChannel('stripe_native');
 
@@ -40,6 +50,13 @@ class StripeNative {
   static Future<String> useNativePay(Order anOrder) async {
     var orderMap = {"subtotal": anOrder.subtotal, "tax": anOrder.tax, "tip": anOrder.tip, "merchantName": anOrder.merchantName};
     final String nativeToken = await _channel.invokeMethod('nativePay', orderMap);
+    return nativeToken;
+  }
+
+  static Future<String> useReceiptNativePay(Receipt aReceipt) async {
+    Map<String, dynamic> orderMap = aReceipt.items;
+    orderMap.addAll({"merchantName": aReceipt.merchantName});
+    final String nativeToken = await _channel.invokeMethod('receiptNativePay', orderMap);
     return nativeToken;
   }
 

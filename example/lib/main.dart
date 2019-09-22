@@ -1,57 +1,49 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:stripe_native/stripe_native.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(NativePayExample());
 
-class MyApp extends StatefulWidget {
+class NativePayExample extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _NativePayExampleState createState() => _NativePayExampleState();
 }
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+class _NativePayExampleState extends State<NativePayExample> {
 
   @override
   void initState() {
     super.initState();
-//    StripeNative.setPublishableKey("pk_test_yZuUz6Sqm83H4lA7SrlAvYCh003MvJiJlR");
     StripeNative.setPublishableKey("pk_test_yZuUz6Sqm83H4lA7SrlAvYCh003MvJiJlR");
     StripeNative.setMerchantIdentifier("merchant.rbii.stripe-example");
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await StripeNative.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   Widget get nativeButton => Padding(padding: EdgeInsets.all(10), child: RaisedButton(padding: EdgeInsets.all(10),
         child: Text("Native-Pay"),
         onPressed: () async {
-//          print("Native-Pay isReady: ${StripeNative.nativePayReady}");
+
+          // subtotal, tax, tip, merchant
           var anOrder = Order(5.50, 1.0, 2.0, "Some Store");
+
+          /* custom receipt w/ useReceiptNativePay
+          var receipt = {"Nice Hat": 5, "Used Hat" : 1.50};
+          var aReceipt = Receipt(receipt, "Hat Store");
+          */
+
           // get token
           var token = await StripeNative.useNativePay(anOrder);
+          // var token = await StripeNative.useReceiptNativePay(aReceipt);
+
           print(token);
-          // show success or failure
-          StripeNative.confirmPayment(true);
+          /* After using the plugin to get a token, charge that token. On iOS the Apple-Pay sheet animation will signal failure or success using confirmPayment. Google-Pay does not have a similar implementation, so I may flash a SnackBar using wasCharged in a real application.
+          call own charge endpoint w/ token
+          const wasCharged = await AppAPI.charge(token, amount);
+          then show success or failure
+          StripeNative.confirmPayment(wasCharged);
+          */
+          // Until this method below is called, iOS will spin a loading indicator on the Apple-Pay sheet
+          StripeNative.confirmPayment(true); // iOS load to check.
+          // StripeNative.confirmPayment(false); // iOS load to X.
+
         }
     ));
 
