@@ -2,6 +2,10 @@
 
 Create chargeable stripe tokens using Apple and Google Pay.
 
+## Set Publishable Key
+
 ### Set Merchant Identifier
 
-### Open Native-Pay
+### Native-Pay
+
+## Confirm Payment
