@@ -16,6 +16,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+//    StripeNative.setPublishableKey("pk_test_yZuUz6Sqm83H4lA7SrlAvYCh003MvJiJlR");
+    StripeNative.setPublishableKey("pk_test_yZuUz6Sqm83H4lA7SrlAvYCh003MvJiJlR");
     StripeNative.setMerchantIdentifier("merchant.rbii.stripe-example");
     initPlatformState();
   }
@@ -42,12 +44,14 @@ class _MyAppState extends State<MyApp> {
 
   Widget get nativeButton => Padding(padding: EdgeInsets.all(10), child: RaisedButton(padding: EdgeInsets.all(10),
         child: Text("Native-Pay"),
-        onPressed: () {
+        onPressed: () async {
 //          print("Native-Pay isReady: ${StripeNative.nativePayReady}");
           var anOrder = Order(5.50, 1.0, 2.0, "Some Store");
-          StripeNative.useNativePay(anOrder).then((String token) {
-            print("received token => " + token);
-          });
+          // get token
+          var token = await StripeNative.useNativePay(anOrder);
+          print(token);
+          // show success or failure
+          StripeNative.confirmPayment(true);
         }
     ));
 
