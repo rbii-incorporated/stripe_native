@@ -22,16 +22,15 @@ class _NativePayExampleState extends State<NativePayExample> {
         onPressed: () async {
 
           // subtotal, tax, tip, merchant
-          var anOrder = Order(5.50, 1.0, 2.0, "Some Store");
+//          var anOrder = Order(5.50, 1.0, 2.0, "Some Store");
 
-          /* custom receipt w/ useReceiptNativePay
-          var receipt = {"Nice Hat": 5, "Used Hat" : 1.50};
+          /* custom receipt w/ useReceiptNativePay */
+          var receipt = <String, double>{"Nice Hat": 5.00, "Used Hat" : 1.50};
           var aReceipt = Receipt(receipt, "Hat Store");
-          */
 
           // get token
-          var token = await StripeNative.useNativePay(anOrder);
-          // var token = await StripeNative.useReceiptNativePay(aReceipt);
+//          var token = await StripeNative.useNativePay(anOrder);
+          var token = await StripeNative.useReceiptNativePay(aReceipt);
 
           print(token);
           /* After using the plugin to get a token, charge that token. On iOS the Apple-Pay sheet animation will signal failure or success using confirmPayment. Google-Pay does not have a similar implementation, so I may flash a SnackBar using wasCharged in a real application.

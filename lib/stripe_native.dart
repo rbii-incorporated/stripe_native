@@ -54,9 +54,10 @@ class StripeNative {
   }
 
   static Future<String> useReceiptNativePay(Receipt aReceipt) async {
-    Map<String, dynamic> orderMap = aReceipt.items;
-    orderMap.addAll({"merchantName": aReceipt.merchantName});
-    final String nativeToken = await _channel.invokeMethod('receiptNativePay', orderMap);
+    var newOrder = Map<String, dynamic>();
+    newOrder.addAll(aReceipt.items);
+    newOrder.addAll({"merchantName": aReceipt.merchantName});
+    final String nativeToken = await _channel.invokeMethod('receiptNativePay', newOrder);
     return nativeToken;
   }
 
