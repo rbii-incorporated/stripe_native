@@ -1,6 +1,6 @@
-## 0.0.1
+# 0.0.1
 
-Apple & Google Pay initial Implementations
+### Apple & Google Pay initial Implementations
 
 Call payment sheets using a Receipt or Order
   - Receipt: A list of items and prices
