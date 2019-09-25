@@ -72,8 +72,11 @@ class StripeNativePlugin: MethodCallHandler {
     }
   }
 
-  private fun createPaymentDataRequest(): PaymentDataRequest? {
+  private fun createPaymentDataRequest(total: Double, name: String): PaymentDataRequest? {
     // create PaymentMethod
+
+    print(name + "charging " + "$" + total.toString())
+
     if (publishableKey == null) {
       print("Please set Stripes' publishable key before calling useNativePay.")
       return null;
@@ -117,15 +120,15 @@ class StripeNativePlugin: MethodCallHandler {
             .put("allowedPaymentMethods",
                     JSONArray().put(cardPaymentMethod))
             .put("transactionInfo", JSONObject()
-                    .put("totalPrice", "10.00")
+                    .put("totalPrice", total.toString())
                     .put("totalPriceStatus", "FINAL")
                     .put("currencyCode", "USD")
             )
             .put("merchantInfo", JSONObject()
-                    .put("merchantName", "Example Merchant"))
+                    .put("merchantName", name))
 
-            // require email address
-            .put("emailRequired", true)
+            // don't require email address
+            .put("emailRequired", false)
             .toString()
 
     return PaymentDataRequest.fromJson(paymentDataRequest)
@@ -145,8 +148,23 @@ class StripeNativePlugin: MethodCallHandler {
       merchantIdentifier = call.arguments as String
       result.success(null)
 
+    } else if (call.method == "receiptNativePay") {
+
 
     } else if (call.method == "nativePay") {
+      var paymentArgs = call.arguments as Map<String, Any>
+      var subtotal = paymentArgs["subtotal"] as? Double
+      var tip = paymentArgs["tip"] as? Double
+      var tax = paymentArgs["tax"] as? Double
+      var merchantName = paymentArgs["merchantName"] as? String
+
+      if (subtotal == null || tip == null || tax == null || merchantName == null ) {
+        result.error("Incorrect payment parameters", "4", null)
+        return
+      }
+
+      var total = subtotal!! + tax!! + tip!!
+
       flutterResult = result
       val request = IsReadyToPayRequest.newBuilder()
               .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_CARD)
@@ -156,7 +174,7 @@ class StripeNativePlugin: MethodCallHandler {
         try {
           val result = task.getResult(ApiException::class.java)!!
           if (result) {
-            val request = createPaymentDataRequest()
+            val request = createPaymentDataRequest(total, merchantName!!)
 
             if (request == null) {
               print("Unable to create Google-Pay request")
