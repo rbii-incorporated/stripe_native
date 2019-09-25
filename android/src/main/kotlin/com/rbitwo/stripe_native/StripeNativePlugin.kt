@@ -16,7 +16,6 @@ import com.google.android.gms.wallet.PaymentsClient
 import com.google.android.gms.wallet.IsReadyToPayRequest
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import androidx.core.app.ActivityCompat.finishAffinity
 import org.json.*
 
 
@@ -73,9 +72,6 @@ class StripeNativePlugin: MethodCallHandler {
   }
 
   private fun createPaymentDataRequest(total: Double, name: String): PaymentDataRequest? {
-    // create PaymentMethod
-
-    print(name + "charging " + "$" + total.toString())
 
     if (publishableKey == null) {
       print("Please set Stripes' publishable key before calling useNativePay.")
@@ -149,7 +145,21 @@ class StripeNativePlugin: MethodCallHandler {
       result.success(null)
 
     } else if (call.method == "receiptNativePay") {
+      var receiptArgs = call.arguments as Map<String, Any>
+      var merchantName = receiptArgs["merchantName"] as? String
 
+      if (merchantName == null) {
+        return
+      }
+
+      var total = 0.0
+      receiptArgs.forEach({entry ->
+        if (entry.value is Double) {
+          total += (entry.value as Double)
+        }
+      })
+
+      googlePay(result, total, merchantName!!)
 
     } else if (call.method == "nativePay") {
       var paymentArgs = call.arguments as Map<String, Any>
@@ -165,45 +175,48 @@ class StripeNativePlugin: MethodCallHandler {
 
       var total = subtotal!! + tax!! + tip!!
 
-      flutterResult = result
-      val request = IsReadyToPayRequest.newBuilder()
-              .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_CARD)
-              .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_TOKENIZED_CARD)
-              .build()
-      paymentsClient?.isReadyToPay(request)?.addOnCompleteListener { task ->
-        try {
-          val result = task.getResult(ApiException::class.java)!!
-          if (result) {
-            val request = createPaymentDataRequest(total, merchantName!!)
+      googlePay(result, total, merchantName)
 
-            if (request == null) {
-              print("Unable to create Google-Pay request")
-            } else {
-
-              paymentTask = paymentsClient?.loadPaymentData(request)
-              if (paymentTask == null) {
-                print("Unable to create Google_pay payment data")
-              } else {
-                AutoResolveHelper.resolveTask(
-                        paymentTask!!,
-                        this.activity!!,
-                        LOAD_PAYMENT_DATA_REQUEST_CODE
-                )
-              }
-            }
-          } else {
-            print("Google Pay is not ready, try calling setMerchantIdentifier first.")
-          }
-        } catch (exception: ApiException) {
-          print("exception inside ready w/ Google pay: " + exception.statusCode)
-        }
-        
-
-      }
     } else if (call.method == "confirmPayment") {
       result.success(null)
     } else {
       result.notImplemented()
+    }
+  }
+
+  private fun googlePay(result: Result, total: Double, name: String) {
+    flutterResult = result
+    val request = IsReadyToPayRequest.newBuilder()
+            .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_CARD)
+            .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_TOKENIZED_CARD)
+            .build()
+    paymentsClient?.isReadyToPay(request)?.addOnCompleteListener { task ->
+      try {
+        val result = task.getResult(ApiException::class.java)!!
+        if (result) {
+          val request = createPaymentDataRequest(total, name)
+
+          if (request == null) {
+            print("Unable to create Google-Pay request")
+          } else {
+
+            paymentTask = paymentsClient?.loadPaymentData(request)
+            if (paymentTask == null) {
+              print("Unable to create Google_pay payment data")
+            } else {
+              AutoResolveHelper.resolveTask(
+                      paymentTask!!,
+                      this.activity!!,
+                      LOAD_PAYMENT_DATA_REQUEST_CODE
+              )
+            }
+          }
+        } else {
+          print("Google Pay is not ready, try calling setMerchantIdentifier first.")
+        }
+      } catch (exception: ApiException) {
+        print("exception inside ready w/ Google pay: " + exception.statusCode)
+      }
     }
   }
 
