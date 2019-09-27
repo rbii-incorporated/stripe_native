@@ -1,6 +1,6 @@
 # Stripe Native
 
-Create chargeable stripe tokens using Apple and Google Pay.
+#### Create chargeable stripe tokens using Apple and Google Pay. 
 
 ### Set Publishable Key
 
