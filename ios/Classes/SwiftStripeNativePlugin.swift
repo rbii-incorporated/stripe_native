@@ -42,11 +42,7 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        if (call.method == "getPlatformVersion") {
-            
-            result("iOS " + UIDevice.current.systemVersion)
-            
-        } else if (call.method == "setPublishableKey") {
+        if (call.method == "setPublishableKey") {
             
             publishableKey = call.arguments as? String
             guard let key = publishableKey else { return }

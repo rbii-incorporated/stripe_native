@@ -58,9 +58,9 @@ var token = await StripeNative.useNativePay(order);
 ```
 
 ```dart
-const receipt = <String, double>{"Nice Hat": 5.00, "Used Hat" : 1.50};
-var aReceipt = Receipt(receipt, "Hat Store");
-var token = await StripeNative.useReceiptNativePay(aReceipt);
+const itemPrices = <String, double>{"Nice Hat": 5.00, "Used Hat" : 1.50};
+var receipt = Receipt(itemPrices, "Hat Store");
+var token = await StripeNative.useReceiptNativePay(receipt);
 ```
 
 ### Confirm Payment (iOS)

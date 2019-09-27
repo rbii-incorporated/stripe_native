@@ -25,10 +25,6 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await StripeNative.platformVersion, '42');
-  });
-
   test('setMerchantIdentifier', () async {
     await StripeNative.setMerchantIdentifier("merchant.rbii.stripe-example");
     expect(StripeNative.merchantIdentifier, "merchant.rbii.stripe-example");

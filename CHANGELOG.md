@@ -14,3 +14,15 @@ Add swift version requirements
 # 1.0.0
 
 Documentation and release
+
+# 1.0.1
+
+Flutter formatting, and description increase
+
+# 1.0.2
+
+description decrease
+
+# 1.0.3
+
+naming in receipt readme

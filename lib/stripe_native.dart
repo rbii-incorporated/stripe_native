@@ -30,12 +30,8 @@ class StripeNative {
 
   static String publishableKey = "";
   static String merchantIdentifier = "";
-  static bool get nativePayReady => merchantIdentifier.isNotEmpty && publishableKey.isNotEmpty;
-
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
+  static bool get nativePayReady =>
+      merchantIdentifier.isNotEmpty && publishableKey.isNotEmpty;
 
   static void setPublishableKey(String key) {
     _channel.invokeMethod("setPublishableKey", key);
@@ -48,8 +44,14 @@ class StripeNative {
   }
 
   static Future<String> useNativePay(Order anOrder) async {
-    var orderMap = {"subtotal": anOrder.subtotal, "tax": anOrder.tax, "tip": anOrder.tip, "merchantName": anOrder.merchantName};
-    final String nativeToken = await _channel.invokeMethod('nativePay', orderMap);
+    var orderMap = {
+      "subtotal": anOrder.subtotal,
+      "tax": anOrder.tax,
+      "tip": anOrder.tip,
+      "merchantName": anOrder.merchantName
+    };
+    final String nativeToken =
+        await _channel.invokeMethod('nativePay', orderMap);
     return nativeToken;
   }
 
@@ -57,12 +59,11 @@ class StripeNative {
     var newOrder = Map<String, dynamic>();
     newOrder.addAll(aReceipt.items);
     newOrder.addAll({"merchantName": aReceipt.merchantName});
-    final String nativeToken = await _channel.invokeMethod('receiptNativePay', newOrder);
+    final String nativeToken =
+        await _channel.invokeMethod('receiptNativePay', newOrder);
     return nativeToken;
   }
 
-  static void confirmPayment(bool isSuccess) {
-    _channel.invokeMethod("confirmPayment", isSuccess);
-  }
-
+  static void confirmPayment(bool isSuccess) =>
+      _channel.invokeMethod("confirmPayment", isSuccess);
 }
