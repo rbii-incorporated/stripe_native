@@ -19,7 +19,7 @@ class _NativePayExampleState extends State<NativePayExample> {
 
   Future<String> get receiptPayment async {
     /* custom receipt w/ useReceiptNativePay */
-    var receipt = <String, double>{"Nice Hat": 5.00, "Used Hat" : 1.50};
+    const receipt = <String, double>{"Nice Hat": 5.00, "Used Hat" : 1.50};
     var aReceipt = Receipt(receipt, "Hat Store");
     return await StripeNative.useReceiptNativePay(aReceipt);
   }
@@ -31,7 +31,7 @@ class _NativePayExampleState extends State<NativePayExample> {
   }
 
   Widget get nativeButton => Padding(padding: EdgeInsets.all(10), child: RaisedButton(padding: EdgeInsets.all(10),
-        child: Text("Native-Pay"),
+        child: Text("Native Pay"),
         onPressed: () async {
 
           // var token = await orderPayment;
@@ -53,5 +53,6 @@ class _NativePayExampleState extends State<NativePayExample> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(home: Scaffold(body: Center(child: nativeButton)));
+
 
 }

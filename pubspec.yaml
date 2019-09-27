@@ -1,6 +1,6 @@
 name: stripe_native
 description: Create chargeable stripe tokens using Apple and Google Pay.
-version: 0.0.1
+version: 1.0.0
 author: John Blanchard <jnblanchard@mac.com>
 homepage: https://www.rbitwo.com
 

@@ -16,6 +16,7 @@ Create chargeable stripe tokens using Apple and Google Pay.
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'Stripe', '16.0.6'
+  s.swift_version = '4.1'
 
   s.ios.deployment_target = '11.0'
 end
