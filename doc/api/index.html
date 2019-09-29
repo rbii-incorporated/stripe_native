@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 0.28.2">
+  <meta name="description" content="stripe_native API docs, for the Dart programming language.">
+  <title>stripe_native - Dart API docs</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="static-assets/github.css">
+  <link rel="stylesheet" href="static-assets/styles.css">
+  <link rel="icon" href="static-assets/favicon.png">
+  
+</head>
+
+<body>
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://www.rbitwo.com">stripe_native package</a></li>
+  </ol>
+  <div class="self-name">stripe_native</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+  <div id="dartdoc-sidebar-left" class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+      <form class="search-sidebar" role="search">
+        <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+      </form>
+    </header>
+    
+    <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+      <li><a href="https://www.rbitwo.com">stripe_native package</a></li>
+    </ol>
+    
+    <h5 class="hidden-xs"><span class="package-name">stripe_native</span> <span class="package-kind">package</span></h5>
+    <ol>
+          <li class="section-title">Libraries</li>
+          <li><a href="stripe_native/stripe_native-library.html">stripe_native</a></li>
+          <li class="section-title">Dart</li>
+          <li><a href="dart-ui/dart-ui-library.html">dart:ui</a></li>
+          <li class="section-subtitle">Core</li>
+            <li class="section-subitem"><a href="dart-async/dart-async-library.html">dart:async</a></li>
+            <li class="section-subitem"><a href="dart-collection/dart-collection-library.html">dart:collection</a></li>
+            <li class="section-subitem"><a href="dart-convert/dart-convert-library.html">dart:convert</a></li>
+            <li class="section-subitem"><a href="dart-core/dart-core-library.html">dart:core</a></li>
+            <li class="section-subitem"><a href="dart-developer/dart-developer-library.html">dart:developer</a></li>
+            <li class="section-subitem"><a href="dart-math/dart-math-library.html">dart:math</a></li>
+            <li class="section-subitem"><a href="dart-typed_data/dart-typed_data-library.html">dart:typed_data</a></li>
+          <li class="section-subtitle">VM</li>
+            <li class="section-subitem"><a href="dart-io/dart-io-library.html">dart:io</a></li>
+            <li class="section-subitem"><a href="dart-isolate/dart-isolate-library.html">dart:isolate</a></li>
+    </ol>
+  </div>
+
+  <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
+      <section class="desc markdown">
+        <h1 id="stripe-native">Stripe Native</h1>
+<h4 id="create-chargeable-stripe-tokens-using-apple-and-google-pay">Create chargeable stripe tokens using Apple and Google Pay.</h4>
+<p>This plugin will give you easy access to the Apple and Google Pay payment sheets. And provide one-time source tokens that are used to create a <a href="https://stripe.com/docs/api/charges/create">Stripe Charge</a>. </p>
+<p><img src="https://user-images.githubusercontent.com/7946558/65780165-02838700-e0fe-11e9-9db9-5fe4e44ed819.gif" alt="Apple Pay"></p>
+<h2 id="setup">Setup</h2>
+<h3 id="both-required">Both (Required)</h3>
+<p>To begin one will need a Stripe project, from there collect a publishable key.</p>
+<h3 id="ios-required">iOS (Required)</h3>
+<p>On the Apple Developer portal, one will need to create a merchant identifier. Then connect that identifier to the Stripe project. </p>
+<p>From the Stripe dashboard, create a signing certificate to share with Apple, then upload the signed certificate to Stripe.</p>
+<p><img src="https://user-images.githubusercontent.com/7946558/65781103-e1239a80-e0ff-11e9-9f0a-178fcdf1e490.png" alt="Merchant Identifier"></p>
+<p>Lastly, open the apps' iOS module. Add the newly created identifier to the project's signing capabilities.</p>
+<p><img src="https://user-images.githubusercontent.com/7946558/65781273-2c3dad80-e100-11e9-89fb-ebc4d480c0f0.png" alt="Signing Capablities"></p>
+<h3 id="android-optional">Android (Optional)</h3>
+<p>On the Google Play console, add the merchant identifier to the app capabilites. This makes the merchant known to Google Pay. With it, users will not see a warning saying this app is an unidentified merchant.</p>
+<h2 id="functions">Functions</h2>
+<h3 id="set-publishable-key">Set Publishable Key</h3>
+<p>Prior to calling native pay, set the publishable key.</p>
+<pre class="language-dart"><code class="language-dart">StripeNative.setPublishableKey("pk_test_yZuUz6Sqm83H4lA7SrlAvYCh003MvJiJlR");
+</code></pre>
+<h3 id="set-merchant-identifier">Set Merchant Identifier</h3>
+<p>Prior to calling native pay, set the merchant identifier.</p>
+<pre class="language-dart"><code class="language-dart">StripeNative.setMerchantIdentifier("merchant.rbii.stripe-example");
+</code></pre>
+<h3 id="native-pay">Native-Pay</h3>
+<p>There are two ways to create a payment sheet. With a list of items and prices, or with some subtotal, tax and tip.</p>
+<p>Both methods require a merchant name to display at the bottom of the sheet. </p>
+<pre class="language-dart"><code class="language-dart">// subtotal, tax, tip, merchant name
+var order = Order(5.50, 1.0, 2.0, "Some Store");
+var token = await StripeNative.useNativePay(order);
+</code></pre>
+<pre class="language-dart"><code class="language-dart">const itemPrices = &lt;String, double&gt;{"Nice Hat": 5.00, "Used Hat" : 1.50};
+var receipt = Receipt(itemPrices, "Hat Store");
+var token = await StripeNative.useReceiptNativePay(receipt);
+</code></pre>
+<h3 id="confirm-payment-ios">Confirm Payment (iOS)</h3>
+<p>On iOS the payment sheet spins and ends with a check or X depending on the result passed in. During the spinning, query an endpoint for a charge using the token. This function does not affect Android.</p>
+<pre class="language-dart"><code class="language-dart">// call charge endpoint w/ token
+const wasCharged = await AppAPI.charge(token, amount);
+// then show success or failure
+StripeNative.confirmPayment(wasCharged);
+</code></pre>
+      </section>
+      
+        <section class="summary">
+            <h2>Libraries</h2>
+          <dl>
+            <dt id="stripe_native">
+              <span class="name"><a href="stripe_native/stripe_native-library.html">stripe_native</a></span>             
+            </dt>
+            <dd>
+              
+            </dd>          </dl>
+        </section>
+        <section class="summary">
+            <h2>Dart</h2>
+          <dl>
+            <dt id="dart:ui">
+              <span class="name"><a href="dart-ui/dart-ui-library.html">dart:ui</a></span>             
+            </dt>
+            <dd>
+              Built-in types and core primitives for a Flutter application. <a href="dart-ui/dart-ui-library.html">[...]</a>
+            </dd>            <h3>Core</h3>
+              <dt id="dart:async">
+                <span class="name"><a href="dart-async/dart-async-library.html">dart:async</a></span>               
+              </dt>
+              <dd>
+                Support for asynchronous programming,
+with classes such as Future and Stream. <a href="dart-async/dart-async-library.html">[...]</a>
+              </dd>              <dt id="dart:collection">
+                <span class="name"><a href="dart-collection/dart-collection-library.html">dart:collection</a></span>               
+              </dt>
+              <dd>
+                Classes and utilities that supplement the collection support in dart:core. <a href="dart-collection/dart-collection-library.html">[...]</a>
+              </dd>              <dt id="dart:convert">
+                <span class="name"><a href="dart-convert/dart-convert-library.html">dart:convert</a></span>               
+              </dt>
+              <dd>
+                Encoders and decoders for converting between different data representations,
+including JSON and UTF-8. <a href="dart-convert/dart-convert-library.html">[...]</a>
+              </dd>              <dt id="dart:core">
+                <span class="name"><a href="dart-core/dart-core-library.html">dart:core</a></span>               
+              </dt>
+              <dd>
+                Built-in types, collections,
+and other core functionality for every Dart program. <a href="dart-core/dart-core-library.html">[...]</a>
+              </dd>              <dt id="dart:developer">
+                <span class="name"><a href="dart-developer/dart-developer-library.html">dart:developer</a></span>               
+              </dt>
+              <dd>
+                Interact with developer tools such as the debugger and inspector. <a href="dart-developer/dart-developer-library.html">[...]</a>
+              </dd>              <dt id="dart:math">
+                <span class="name"><a href="dart-math/dart-math-library.html">dart:math</a></span>               
+              </dt>
+              <dd>
+                Mathematical constants and functions, plus a random number generator. <a href="dart-math/dart-math-library.html">[...]</a>
+              </dd>              <dt id="dart:typed_data">
+                <span class="name"><a href="dart-typed_data/dart-typed_data-library.html">dart:typed_data</a></span>               
+              </dt>
+              <dd>
+                Lists that efficiently handle fixed sized data
+(for example, unsigned 8 byte integers) and SIMD numeric types. <a href="dart-typed_data/dart-typed_data-library.html">[...]</a>
+              </dd>            <h3>VM</h3>
+              <dt id="dart:io">
+                <span class="name"><a href="dart-io/dart-io-library.html">dart:io</a></span>               
+              </dt>
+              <dd>
+                File, socket, HTTP, and other I/O support for non-web applications. <a href="dart-io/dart-io-library.html">[...]</a>
+              </dd>              <dt id="dart:isolate">
+                <span class="name"><a href="dart-isolate/dart-isolate-library.html">dart:isolate</a></span>               
+              </dt>
+              <dd>
+                Concurrent programming using <em>isolates</em>:
+independent workers that are similar to threads
+but don't share memory,
+communicating only via messages. <a href="dart-isolate/dart-isolate-library.html">[...]</a>
+              </dd>          </dl>
+        </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-right" class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    stripe_native 1.0.4
+  </span>
+
+  
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="static-assets/typeahead.bundle.min.js"></script>
+<script src="static-assets/highlight.pack.js"></script>
+<script src="static-assets/URI.js"></script>
+<script src="static-assets/script.js"></script>
+
+
+</body>
+
+</html>

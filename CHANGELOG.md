@@ -30,3 +30,7 @@ naming in receipt readme
 # 1.0.4
 
 add example readme
+
+# 1.0.5
+
+add dartdoc
