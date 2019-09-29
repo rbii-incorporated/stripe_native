@@ -26,3 +26,7 @@ description decrease
 # 1.0.3
 
 naming in receipt readme
+
+# 1.0.4
+
+add example readme

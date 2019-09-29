@@ -1,6 +1,6 @@
 name: stripe_native
 description: Create chargeable stripe tokens using Apple and Google Pay. Display native Apple and Google Pay sheets, then collect one-time source tokens.
-version: 1.0.3
+version: 1.0.4
 author: John Blanchard <jnblanchard@mac.com>
 homepage: https://www.rbitwo.com
 
