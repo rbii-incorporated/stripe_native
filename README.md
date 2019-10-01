@@ -45,6 +45,15 @@ Prior to calling native pay, set the merchant identifier.
 StripeNative.setMerchantIdentifier("merchant.rbii.stripe-example");
 ```
 
+### Set Currency Key
+
+In order to change the currency, pass in an ISO currency code prior to opening a payment sheet. On iOS it also requires passing in a country code.
+```dart
+StripeNative.setCurrencyKey("EUR");
+// Not required on Android
+StripeNative.setCountryKey("FR");
+```
+
 ### Native-Pay
 
 There are two ways to create a payment sheet. With a list of items and prices, or with some subtotal, tax and tip.

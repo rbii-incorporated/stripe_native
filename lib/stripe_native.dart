@@ -32,6 +32,8 @@ class StripeNative {
   static String merchantIdentifier = "";
   static bool get nativePayReady =>
       merchantIdentifier.isNotEmpty && publishableKey.isNotEmpty;
+  static String currencyKey = "";
+  static String countryKey = "";
 
   static void setPublishableKey(String key) {
     _channel.invokeMethod("setPublishableKey", key);
@@ -41,6 +43,16 @@ class StripeNative {
   static void setMerchantIdentifier(String identifier) {
     _channel.invokeMethod('setMerchantIdentifier', identifier);
     merchantIdentifier = identifier;
+  }
+
+  static void setCurrencyKey(String key) {
+    _channel.invokeMethod('setCurrencyKey', key);
+    currencyKey = key;
+  }
+
+  static void setCountryKey(String key) {
+    _channel.invokeMethod('setCountryKey', key);
+    countryKey = key;
   }
 
   static Future<String> useNativePay(Order anOrder) async {

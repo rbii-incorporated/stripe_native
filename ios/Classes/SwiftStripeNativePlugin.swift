@@ -29,6 +29,8 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
 
     var publishableKey: String?
     var merchantIdentifier: String?
+    var currencyKey = "USD"
+    var countryKey = "US"
     var flutterResult: FlutterResult?
     
     var completion: ((PKPaymentAuthorizationResult) -> Void)?
@@ -51,6 +53,14 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
         } else if (call.method == "setMerchantIdentifier") {
             
             merchantIdentifier = call.arguments as? String
+            
+        } else if (call.method == "setCurrencyKey") {
+            
+            currencyKey = call.arguments as? String
+            
+        } else if (call.method == "setCountryKey") {
+            
+            countryKey = call.arguments as? String
             
         } else if (call.method == "nativePay") {
             
@@ -111,7 +121,7 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
         
         flutterResult = result
         
-        let paymentRequest = Stripe.paymentRequest(withMerchantIdentifier: identifier, country: "US", currency: "USD")
+        let paymentRequest = Stripe.paymentRequest(withMerchantIdentifier: identifier, country: countryKey, currency: currencyKey)
         
         let total = items.reduce(0) { (next, item) -> Double in
             return item.price + next
@@ -139,7 +149,7 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
         
         flutterResult = result
         
-        let paymentRequest = Stripe.paymentRequest(withMerchantIdentifier: identifier, country: "US", currency: "USD")
+        let paymentRequest = Stripe.paymentRequest(withMerchantIdentifier: identifier, country: countryKey, currency: currencyKey)
 
         let total = payment.subtotal + payment.tax + payment.tip
 

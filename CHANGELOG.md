@@ -34,3 +34,7 @@ add example readme
 # 1.0.5
 
 add dartdoc
+
+# 1.1.0
+
+setCurrencyKey and setCountryKey
