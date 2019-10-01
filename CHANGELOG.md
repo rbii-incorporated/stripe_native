@@ -38,3 +38,7 @@ add dartdoc
 # 1.1.0
 
 setCurrencyKey and setCountryKey
+
+# 1.1.1
+
+null currency key fix

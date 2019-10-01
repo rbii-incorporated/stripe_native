@@ -56,11 +56,13 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
             
         } else if (call.method == "setCurrencyKey") {
             
-            currencyKey = call.arguments as? String
+            guard let key = call.arguments as? String else { return }
+            currencyKey = key
             
         } else if (call.method == "setCountryKey") {
             
-            countryKey = call.arguments as? String
+            guard let key = call.arguments as? String else { return }
+            countryKey = key
             
         } else if (call.method == "nativePay") {
             
