@@ -30,6 +30,17 @@ class _NativePayExampleState extends State<NativePayExample> {
     return await StripeNative.useNativePay(order);
   }
 
+  Widget get cardInputButton => Padding(padding: EdgeInsets.all(10), child: RaisedButton(padding: EdgeInsets.all(10),
+      child: Text("Card Pay"),
+      onPressed: () async {
+
+        var token = await StripeNative.useCardPay;
+
+        print(token);
+
+      }
+  ));
+
   Widget get nativeButton => Padding(padding: EdgeInsets.all(10), child: RaisedButton(padding: EdgeInsets.all(10),
         child: Text("Native Pay"),
         onPressed: () async {
@@ -51,8 +62,10 @@ class _NativePayExampleState extends State<NativePayExample> {
         }
     ));
 
+  Widget get buttonColumn => Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[cardInputButton, nativeButton]);
+
   @override
-  Widget build(BuildContext context) => MaterialApp(home: Scaffold(body: Center(child: nativeButton)));
+  Widget build(BuildContext context) => MaterialApp(home: Scaffold(body: Center(child: buttonColumn)));
 
 
 }

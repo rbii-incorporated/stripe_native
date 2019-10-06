@@ -14,6 +14,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  test: any
 
   stripe_native:
     path: ../
@@ -21,3 +24,4 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+

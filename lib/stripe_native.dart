@@ -1,5 +1,12 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+class CardPayTheme {
+  Color primaryBackgroundColor;
+
+  CardPayTheme({this.primaryBackgroundColor});
+}
 
 class Order {
   double subtotal;
@@ -55,6 +62,16 @@ class StripeNative {
     countryKey = key;
   }
 
+  static void setCardPayTheme(CardPayTheme cardTheme) {
+    var cardTheme = {
+
+    };
+    _channel.invokeMethod('cardTheme', cardTheme);
+  }
+
+  static Future<String> get useCardPay async =>
+      await _channel.invokeMethod('cardInput');
+
   static Future<String> useNativePay(Order anOrder) async {
     var orderMap = {
       "subtotal": anOrder.subtotal,
@@ -62,18 +79,14 @@ class StripeNative {
       "tip": anOrder.tip,
       "merchantName": anOrder.merchantName
     };
-    final String nativeToken =
-        await _channel.invokeMethod('nativePay', orderMap);
-    return nativeToken;
+    return await _channel.invokeMethod('nativePay', orderMap);
   }
 
   static Future<String> useReceiptNativePay(Receipt aReceipt) async {
     var newOrder = Map<String, dynamic>();
     newOrder.addAll(aReceipt.items);
     newOrder.addAll({"merchantName": aReceipt.merchantName});
-    final String nativeToken =
-        await _channel.invokeMethod('receiptNativePay', newOrder);
-    return nativeToken;
+    return await _channel.invokeMethod('receiptNativePay', newOrder);
   }
 
   static void confirmPayment(bool isSuccess) =>

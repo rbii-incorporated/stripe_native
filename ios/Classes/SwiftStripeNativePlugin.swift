@@ -21,11 +21,12 @@ enum StripeNativeError: Error {
     case MissingMerchantName
     case StripeCannotSubmitPayment
     case FunctionDoesNotExist
+    case CardCollectionFailure
     case PaymentParameterTypeMismatch
     case ConfirmationParameterTypeMismatch
 }
 
-public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthorizationViewControllerDelegate {
+public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthorizationViewControllerDelegate, STPAddCardViewControllerDelegate {
 
     var publishableKey: String?
     var merchantIdentifier: String?
@@ -33,6 +34,7 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
     var countryKey = "US"
     var flutterResult: FlutterResult?
     
+    var cardNavController: UINavigationController?
     var completion: ((PKPaymentAuthorizationResult) -> Void)?
     
     var stripeClient: STPAPIClient?
@@ -63,6 +65,16 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
             
             guard let key = call.arguments as? String else { return }
             countryKey = key
+            
+        } else if (call.method == "cardInput") {
+            
+            flutterResult = result
+            
+            let addCardViewController = STPAddCardViewController()
+            addCardViewController.delegate = self
+
+            cardNavController = UINavigationController(rootViewController: addCardViewController)
+            UIApplication.shared.keyWindow?.rootViewController?.present(cardNavController!, animated: true)
             
         } else if (call.method == "nativePay") {
             
@@ -168,6 +180,23 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
         } else {
             hand(errors: [StripeNativeError.StripeCannotSubmitPayment])
         }
+    }
+    
+    public func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        
+        cardNavController?.dismiss(animated: true, completion: nil)
+        
+    }
+
+    private func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreatePaymentMethod paymentMethod: STPPaymentMethod, completion: @escaping STPErrorBlock) {
+        
+        guard !paymentMethod.stripeId.isEmpty else {
+            hand(errors: [StripeNativeError.CardCollectionFailure])
+            return
+        }
+        
+        self.flutterResult?(paymentMethod.stripeId)
+        
     }
 
     public func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
