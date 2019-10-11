@@ -42,3 +42,7 @@ setCurrencyKey and setCountryKey
 # 1.1.1
 
 null currency key fix
+
+# 1.1.2
+
+switch wallet environment using publishable key hint

@@ -64,10 +64,6 @@ class StripeNativePlugin: MethodCallHandler {
         }
         true
       })
-      plugin.paymentsClient = Wallet.getPaymentsClient(plugin.activity!!,
-              Wallet.WalletOptions.Builder()
-                      .setEnvironment(WalletConstants.ENVIRONMENT_TEST)
-                      .build())
       channel.setMethodCallHandler(plugin)
     }
   }
@@ -134,6 +130,15 @@ class StripeNativePlugin: MethodCallHandler {
   override fun onMethodCall(call: MethodCall, result: Result) {
     if (call.method == "setPublishableKey") {
       publishableKey = call.arguments as String
+
+      var walletEnvironment = WalletConstants.ENVIRONMENT_TEST
+      if ("pk_live" in this.publishableKey!!) {
+        walletEnvironment = WalletConstants.ENVIRONMENT_PRODUCTION
+      }
+      paymentsClient = Wallet.getPaymentsClient(this.activity!!,
+              Wallet.WalletOptions.Builder()
+                      .setEnvironment(walletEnvironment)
+                      .build())
       result.success(null)
 
 
