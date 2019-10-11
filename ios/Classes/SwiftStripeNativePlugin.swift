@@ -26,7 +26,7 @@ enum StripeNativeError: Error {
     case ConfirmationParameterTypeMismatch
 }
 
-public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthorizationViewControllerDelegate, STPAddCardViewControllerDelegate {
+public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthorizationViewControllerDelegate, STPAddCardViewControllerDelegate, CardInputDelegate {
 
     var publishableKey: String?
     var merchantIdentifier: String?
@@ -69,12 +69,21 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
         } else if (call.method == "cardInput") {
             
             flutterResult = result
+                                    
+            let cardInputVC = CardInputViewController()
             
+            cardInputVC.delegate = self
+                        
+            UIApplication.shared.keyWindow?.rootViewController?.present(cardInputVC, animated: true, completion: nil)
+            
+            
+            /*
             let addCardViewController = STPAddCardViewController()
             addCardViewController.delegate = self
 
             cardNavController = UINavigationController(rootViewController: addCardViewController)
             UIApplication.shared.keyWindow?.rootViewController?.present(cardNavController!, animated: true)
+            */
             
         } else if (call.method == "nativePay") {
             
@@ -180,6 +189,16 @@ public class SwiftStripeNativePlugin: NSObject, FlutterPlugin, PKPaymentAuthoriz
         } else {
             hand(errors: [StripeNativeError.StripeCannotSubmitPayment])
         }
+    }
+    
+    func canceled(reason: CardInputFailure) {
+        print("failure of card input: " + reason.localizedDescription)
+        hand(errors: [reason])
+    }
+    
+    public func completed(token: String) {
+        print("finished card input: " + token)
+        flutterResult?(token)
     }
     
     public func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {

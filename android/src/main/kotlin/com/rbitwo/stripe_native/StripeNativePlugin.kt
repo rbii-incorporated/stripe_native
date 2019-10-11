@@ -1,6 +1,7 @@
 package com.rbitwo.stripe_native
 
 import android.app.Activity
+import android.content.Intent
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -16,6 +17,8 @@ import com.google.android.gms.wallet.PaymentsClient
 import com.google.android.gms.wallet.IsReadyToPayRequest
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import androidx.core.content.ContextCompat.startActivity
+import android.os.Build
 import org.json.*
 
 
@@ -150,6 +153,13 @@ class StripeNativePlugin: MethodCallHandler {
 
       result.success(null)
 
+    } else if (call.method == "cardInput") {
+      
+      val cardIntent = Intent(this.activity!!, StripeCardInput::class.java)
+
+      this.activity!!.startActivity(cardIntent)
+
+      
     } else if (call.method == "receiptNativePay") {
 
       var receiptArgs = call.arguments as Map<String, Any>

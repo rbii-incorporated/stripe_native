@@ -1,7 +1,7 @@
 PODS:
   - Flutter (1.0.0)
   - Stripe (16.0.6)
-  - stripe_native (0.0.1):
+  - stripe_native (1.1.1):
     - Flutter
     - Stripe (= 16.0.6)
 
@@ -22,7 +22,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   Stripe: bbfdfb44bcc604bd3d29771f80d5d72710301fe3
-  stripe_native: f12b7f0c6e3a8402cad7241c107ee2275733a690
+  stripe_native: fa8aa653ab5464ab159a44b16585ede27f03c903
 
 PODFILE CHECKSUM: 1bcd5355f5e485e35ac6fbbc8c08a0bd35960216
 
