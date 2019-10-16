@@ -46,3 +46,7 @@ null currency key fix
 # 1.1.2
 
 switch wallet environment using publishable key hint
+
+# 1.1.3
+
+add error to iOS for unsupported country key (pod 1.0.1)
