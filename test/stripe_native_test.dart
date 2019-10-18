@@ -29,11 +29,10 @@ void main() {
     await StripeNative.setMerchantIdentifier("merchant.rbii.stripe-example");
     expect(StripeNative.merchantIdentifier, "merchant.rbii.stripe-example");
   });
-
-  test('launchOrder', () async {
-    expect(StripeNative.nativePayReady, true);
-    var order = Order(5, 1, 2, "test merchant");
-    var token = await StripeNative.useNativePay(order);
-    expect(token, null);
+  
+  test('setProperCountryCode', () async {
+    await StripeNative.setCountryKey("BR");
+    expect(StripeNative.countryKey, "BR");
   });
+
 }

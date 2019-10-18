@@ -50,3 +50,7 @@ switch wallet environment using publishable key hint
 # 1.1.3
 
 add error to iOS for unsupported country key (pod 1.0.1)
+
+# 1.1.4 
+
+add prefixes for country codes, StripeNativeErrors -> FlutterErrors
