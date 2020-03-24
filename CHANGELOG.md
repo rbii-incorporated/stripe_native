@@ -54,3 +54,10 @@ add error to iOS for unsupported country key (pod 1.0.1)
 # 1.1.4 
 
 add prefixes for country codes, StripeNativeErrors -> FlutterErrors
+
+# 1.2.0
+
+* Android: Bump AGP & Gradle
+* Require Flutter 1.12.13+hotfix.5 (stable)
+* Update pubspec.yaml format
+* Update .gitignore & remove unused files from repository
