@@ -61,3 +61,5 @@ add prefixes for country codes, StripeNativeErrors -> FlutterErrors
 * Require Flutter 1.12.13+hotfix.5 (stable)
 * Update pubspec.yaml format
 * Update .gitignore & remove unused files from repository
+* iOS: Bump to Swift 5.0
+* iOS: Define clang module
