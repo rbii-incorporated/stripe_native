@@ -1,11 +1,7 @@
 name: stripe_native
 description: Create chargeable stripe tokens using Apple and Google Pay. Display native Apple and Google Pay sheets, then collect one-time source tokens.
-version: 1.1.4
-author: John Blanchard <jnblanchard@mac.com>
+version: 1.2.0
 homepage: https://www.rbitwo.com
-
-environment:
-  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -16,7 +12,14 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
   plugin:
-    androidPackage: com.rbitwo.stripe_native
-    pluginClass: StripeNativePlugin
+    platforms:
+      android:
+        package: com.rbitwo.stripe_native
+        pluginClass: StripeNativePlugin
+      ios:
+        pluginClass: StripeNativePlugin
+
+environment:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+  flutter: ">=1.12.13+hotfix.5 <2.0.0"
