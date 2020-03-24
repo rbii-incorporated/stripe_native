@@ -12,10 +12,13 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
   plugin:
-    androidPackage: com.rbitwo.stripe_native
-    pluginClass: StripeNativePlugin
+    platforms:
+      android:
+        package: com.rbitwo.stripe_native
+        pluginClass: StripeNativePlugin
+      ios:
+        pluginClass: StripeNativePlugin
 
 environment:
   sdk: ">=2.0.0-dev.28.0 <3.0.0"
