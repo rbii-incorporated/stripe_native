@@ -2,9 +2,6 @@ name: stripe_native_example
 description: Demonstrates how to use the stripe_native plugin.
 publish_to: 'none'
 
-environment:
-  sdk: ">=2.1.0 <3.0.0"
-
 dependencies:
   flutter:
     sdk: flutter
@@ -19,5 +16,4 @@ dev_dependencies:
     path: ../
 
 flutter:
-
   uses-material-design: true
