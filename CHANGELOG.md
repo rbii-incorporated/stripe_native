@@ -63,3 +63,7 @@ add prefixes for country codes, StripeNativeErrors -> FlutterErrors
 * Update .gitignore & remove unused files from repository
 * iOS: Bump to Swift 5.0
 * iOS: Define clang module
+
+# 1.2.1
+
+* Bump Stripe SDK dependency versions on both platforms
