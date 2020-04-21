@@ -41,7 +41,7 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.stripe:stripe-android:11.0.2'
+    implementation 'com.stripe:stripe-android:14.3.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.gms:play-services-wallet:18.0.0'
     implementation 'com.github.salomonbrys.kotson:kotson:2.5.0'
