@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'stripe_native'
-  s.version          = '1.2.0'
+  s.version          = '1.2.2'
   s.summary          = 'Create chargeable stripe tokens using Apple and Google Pay.'
   s.description      = <<-DESC
 Create chargeable stripe tokens using Apple and Google Pay.

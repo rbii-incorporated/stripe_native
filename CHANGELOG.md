@@ -67,3 +67,7 @@ add prefixes for country codes, StripeNativeErrors -> FlutterErrors
 # 1.2.1
 
 * Bump Stripe SDK dependency versions on both platforms
+
+# 1.2.2
+
+* Bump iOS podspec
