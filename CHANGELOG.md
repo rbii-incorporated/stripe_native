@@ -71,3 +71,8 @@ add prefixes for country codes, StripeNativeErrors -> FlutterErrors
 # 1.2.2
 
 * Bump iOS podspec
+
+# 1.2.3
+
+* Bump android stripe sdk to 14.4.1
+* Remove kotson:2.5.0
